@@ -1,0 +1,59 @@
+name: "DNM Check"
+description: "Checks for the specified string in changed files of a pull request and posts a comment with the results"
+
+inputs:
+  search_string:
+    description: "The string to search for in changed files"
+    required: false
+    default: "DNM"
+  token:
+    description: "The GitHub token used to authenticate API requests (optional)"
+    required: false
+
+outputs:
+  found_string:
+    description: "Whether the specified string was found in changed files"
+  string_locations:
+    description: "The locations of the specified string in changed files"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Get list of changed files
+      id: get_changed_files
+      run: |
+        if [[ $GITHUB_EVENT_NAME == "push" ]]; then
+          git diff --name-only --diff-filter=d ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
+        elif [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+          git diff --name-only --diff-filter=d FETCH_HEAD...${{ github.sha }} > changed_files.txt
+        fi
+      shell: bash
+
+    - name: Search for custom string in changed files
+      id: search_custom_string
+      run: |
+        found_string=false
+        string_locations=""
+        while read file; do
+          result=$(grep -n "${{ inputs.search_string }}" "$file")
+          if [[ ! -z $result ]]; then
+            found_string=true
+            string_locations+="$file:\n$result\n\n"
+          fi
+        done < changed_files.txt
+        echo "::set-output name=found_string::$found_string"
+        echo "::set-output name=string_locations::$string_locations"
+      shell: bash
+
+    - name: Update or create a comment on PR
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ inputs.token }}
+        script: |
+          const comment = require('./comment.js');
+          comment();
