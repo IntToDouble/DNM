@@ -1,0 +1,22 @@
+{
+  "name": "dnm",
+  "version": "1.0.0",
+  "description": "\"DO NOT MERGE\" Github Action Check",
+  "main": "comment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IntToDouble/DNM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IntToDouble/DNM/issues"
+  },
+  "homepage": "https://github.com/IntToDouble/DNM#readme",
+  "dependencies": {
+    "@actions/github": "^5.1.1"
+  }
+}

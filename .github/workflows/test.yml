@@ -1,0 +1,15 @@
+name: DNM Test
+
+on:
+  pull_request:
+
+jobs:
+  dnm_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNM Check
+        uses: IntToDouble/DNM@main
+        # with:
+        #   token: ${{ secrets.GITHUB_TOKEN }}
+        #   search_string: 'DNM'
+        # token: ${{ secrets.GITHUB_TOKEN }}
