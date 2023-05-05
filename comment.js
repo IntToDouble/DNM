@@ -41,5 +41,4 @@ const main = async () => {
   }
 };
 
-// DNM
 main();
