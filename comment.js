@@ -34,6 +34,7 @@ const payload = {
   body: commentBody(Boolean(stringLocations), stringLocations),
 };
 
+// DNM
 if (customStringCheckComment) {
   await github.rest.issues.updateComment(payload);
 } else {
