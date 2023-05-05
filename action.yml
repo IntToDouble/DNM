@@ -48,8 +48,8 @@ runs:
             string_locations+="$file:\n$result\n\n"
           fi
         done < changed_files.txt
-        echo "::set-output name=found_string::$found_string"
-        echo "::set-output name=string_locations::$string_locations"
+        echo "{found_string}={$found_string}" >> $GITHUB_OUTPUT
+        echo "{string_locations}={$string_locations}" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Update or create a comment on PR
