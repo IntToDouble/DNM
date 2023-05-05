@@ -29,7 +29,8 @@ runs:
       run: |
         if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
           git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
-          git diff --name-only --diff-filter=d FETCH_HEAD...${{ github.sha }} > changed_files.txt
+          git fetch origin ${{ github.event.pull_request.head.ref }} --depth=1
+          git diff --name-only --diff-filter=d origin/${{ github.event.pull_request.base.ref }}...origin/${{ github.event.pull_request.head.ref }} > changed_files.txt
         else
           echo "This action only works with pull_request events." >&2
           exit 1
