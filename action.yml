@@ -27,14 +27,15 @@ runs:
     - name: Get list of changed files
       id: get_changed_files
       run: |
-        if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
-          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
-          git fetch origin ${{ github.event.pull_request.head.ref }} --depth=1
-          git diff --name-only --diff-filter=d origin/${{ github.event.pull_request.base.ref }}...origin/${{ github.event.pull_request.head.ref }} > changed_files.txt
-        else
-          echo "This action only works with pull_request events." >&2
-          exit 1
-        fi
+        gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files.[].path' > changed_files.txt
+        # if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+        #   git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+        #   git fetch origin ${{ github.event.pull_request.head.ref }} --depth=1
+        #   git diff --name-only --diff-filter=d origin/${{ github.event.pull_request.base.ref }}...origin/${{ github.event.pull_request.head.ref }} > changed_files.txt
+        # else
+        #   echo "This action only works with pull_request events." >&2
+        #   exit 1
+        # fi
       shell: bash
 
     - name: Search for custom string in changed files
