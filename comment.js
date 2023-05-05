@@ -18,25 +18,28 @@ const commentBody = (foundString, stringLocations) => {
     return `${commentIdentifier}\n✅ The '${searchString}' string was not found in the changes. You're good to go!`;
   }
 };
+const main = async () => {
+  const existingComments = await github.rest.issues.listComments({
+    ...context.repo,
+    issue_number,
+  });
 
-const existingComments = await github.rest.issues.listComments({
-  ...context.repo,
-  issue_number,
-});
+  const customStringCheckComment = existingComments.data.find((comment) =>
+    comment.body.includes(commentIdentifier)
+  );
 
-const customStringCheckComment = existingComments.data.find((comment) =>
-  comment.body.includes(commentIdentifier)
-);
+  const payload = {
+    ...context.repo,
+    comment_id: customStringCheckComment.id,
+    body: commentBody(Boolean(stringLocations), stringLocations),
+  };
 
-const payload = {
-  ...context.repo,
-  comment_id: customStringCheckComment.id,
-  body: commentBody(Boolean(stringLocations), stringLocations),
+  if (customStringCheckComment) {
+    await github.rest.issues.updateComment(payload);
+  } else {
+    await github.rest.issues.createComment(payload);
+  }
 };
 
 // DNM
-if (customStringCheckComment) {
-  await github.rest.issues.updateComment(payload);
-} else {
-  await github.rest.issues.createComment(payload);
-}
+main();

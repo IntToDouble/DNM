@@ -26,13 +26,18 @@ runs:
 
     - name: Get list of changed files
       id: get_changed_files
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
-        if [[ $GITHUB_EVENT_NAME == "push" ]]; then
-          git diff --name-only --diff-filter=d ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
-        elif [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
-          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
-          git diff --name-only --diff-filter=d FETCH_HEAD...${{ github.sha }} > changed_files.txt
-        fi
+        gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files.[].path' > changed_files.txt
+        # if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+        #   git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+        #   git fetch origin ${{ github.event.pull_request.head.ref }} --depth=1
+        #   git diff --name-only --diff-filter=d origin/${{ github.event.pull_request.base.ref }}...origin/${{ github.event.pull_request.head.ref }} > changed_files.txt
+        # else
+        #   echo "This action only works with pull_request events." >&2
+        #   exit 1
+        # fi
       shell: bash
 
     - name: Search for custom string in changed files
@@ -47,15 +52,16 @@ runs:
             string_locations+="$file:\n$result\n\n"
           fi
         done < changed_files.txt
-        echo "::set-output name=found_string::$found_string"
-        echo "::set-output name=string_locations::$string_locations"
+        echo "{found_string}={$found_string}" >> $GITHUB_OUTPUT
+        echo "{string_locations}={$string_locations}" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Update or create a comment on PR
       if: ${{ github.event_name == 'pull_request' }}
       uses: actions/github-script@v5
       with:
-        github-token: ${{ inputs.token }}
+        # github-token: ${{ inputs.token }}
+        github-token: ${{ github.token }}
         script: |
           const comment = require('./comment.js');
           comment();
