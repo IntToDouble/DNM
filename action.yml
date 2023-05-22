@@ -50,7 +50,7 @@ runs:
         exit 1
       shell: bash
 
-    - name: Update or create a comment on PR
+    - name: Update or Create PR Comment
       if: ${{ github.event_name == 'pull_request' && always() }}
       uses: actions/github-script@v6
       env:
