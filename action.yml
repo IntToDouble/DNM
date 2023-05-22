@@ -63,7 +63,7 @@ runs:
         script: |
           const  issue_number = context.issue.number;
           const commentIdentifier = "<!-- do-not-merge-comment -->";
-          const stringLocations = process.env.STRING_LOCATIONS;
+          const stringLocations = process.env.STRING_LOCATIONS || "";
           const searchString = process.env.SEARCH_STRING;
 
           if (context.eventName !== "pull_request") {
