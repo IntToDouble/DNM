@@ -61,6 +61,7 @@ runs:
         SEARCH_STRING: ${{ inputs.search_string }}
       with:
         script: |
+          // Random comment to trigger a workflow run
           const  issue_number = context.issue.number;
           const commentIdentifier = "<!-- do-not-merge-comment -->";
           const stringLocations = process.env.STRING_LOCATIONS || "";
