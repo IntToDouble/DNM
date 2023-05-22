@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: DO NOT MERGE Check
-        uses: IntToDouble/DNM@main
+        uses: IntToDouble/DNM@v1
         with:
           search_string: "DNM"
 ```
