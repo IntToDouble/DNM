@@ -2,7 +2,6 @@
 
 This action checks for a specified string in the changed files of a pull request and posts a comment on the pull request with the results if the string is found.
 
-<br />
 
 ## Why?
 
@@ -18,9 +17,8 @@ One approach to prevent this is to leave clues for Future You in comments in you
 
 This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then commenting on the lines you still need to address:
 
-<img width="663" alt="image" src="https://github.com/IntToDouble/DNM/assets/3053339/2bdd4c7a-443d-490c-aa1b-22ac4c467004">
+![image](https://github.com/IntToDouble/DNM/assets/3053339/24f65e96-c0d3-414e-bfb1-03dbc8d27cd8)
 
-<br />
 
 ## Inputs
 
@@ -28,7 +26,6 @@ This Github Action serves as your second pair of eyes, failing anytime it detect
 | --------------- | ---------------------------------------------- | -------- | ------- |
 | `search_string` | The string to search for in the changed files. | No       | "DNM"   |
 
-<br />
 
 ## Outputs
 
@@ -37,7 +34,6 @@ This Github Action serves as your second pair of eyes, failing anytime it detect
 | `found_string`     | Whether the specified string was found in the changed files. |
 | `string_locations` | The locations of the specified string in changed files.      |
 
-<br />
 
 ## Example Usage
 
