@@ -20,6 +20,8 @@ const commentBody = (foundString, stringLocations) => {
     return `${commentIdentifier}\n✅ The '${searchString}' string was not found in the changes. You're good to go!`;
   }
 };
+
+// DNM
 const main = async () => {
   const existingComments = await github.rest.issues.listComments({
     ...context.repo,
