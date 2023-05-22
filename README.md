@@ -1,4 +1,4 @@
-# "// DNM: DO NOT MERGE" Check GitHub Action
+# DNM/DO NOT MERGE Check GitHub Action
 
 This action checks for a specified string in the changed files of a pull request and posts a comment on the pull request with the results if the string is found.
 
@@ -10,14 +10,15 @@ While better engineers would never dream of clicking "Merge" before doing a fina
 
 One approach to prevent this is to leave clues for Future You in comments in your code:
 
-<img width="663" alt="image" src="https://github.com/IntToDouble/DNM/assets/3053339/2bdd4c7a-443d-490c-aa1b-22ac4c467004">
-
 
 ```
 <!-- DNM - UPDATE WITH FINAL CHANGES FROM LEGAL -->
 ```
 
 This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then commenting on the lines you still need to address:
+
+<img width="663" alt="image" src="https://github.com/IntToDouble/DNM/assets/3053339/2bdd4c7a-443d-490c-aa1b-22ac4c467004">
+
 
 ## Inputs
 
