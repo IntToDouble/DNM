@@ -1,6 +1,10 @@
 name: "DNM Check"
 description: "Checks for the specified string in changed files of a pull request and posts a comment with the results"
 
+branding:
+  icon: "minus-circle"
+  color: "white"
+
 inputs:
   search_string:
     description: "The string to search for in changed files"
