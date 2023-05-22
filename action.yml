@@ -45,6 +45,7 @@ runs:
         done < changed_files.txt
         echo "FOUND_STRING=$found_string" >> "$GITHUB_ENV"
         echo "STRING_LOCATIONS=$string_locations" >> "$GITHUB_ENV"
+        exit 0
       shell: bash
 
     - name: Fail if found
