@@ -6,9 +6,6 @@ inputs:
     description: "The string to search for in changed files"
     required: false
     default: "DNM"
-  # token:
-  #   description: "The GitHub token used to authenticate API requests (optional)"
-  #   required: false
 
 outputs:
   found_string:
@@ -19,10 +16,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Check out code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-    - name: Get list of changed files
+    - name: Get Changed Files
       id: get_changed_files
       env:
         GH_TOKEN: ${{ github.token }}
@@ -30,7 +26,7 @@ runs:
         gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files.[].path' > changed_files.txt
       shell: bash
 
-    - name: Search for custom string in changed files
+    - name: Search for string
       id: search_custom_string
       run: |
         found_string=false
@@ -60,7 +56,6 @@ runs:
       env:
         SEARCH_STRING: ${{ inputs.search_string }}
       with:
-        debug: true
         script: |
           const  issue_number = context.issue.number;
           const commentIdentifier = "<!-- do-not-merge-comment -->";
