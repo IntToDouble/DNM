@@ -32,7 +32,9 @@ runs:
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
 
           while read line; do 
-            found_string=true
+            if [[ -z "$line" ]]; then
+              found_string=true
+            fi
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
