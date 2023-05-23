@@ -37,6 +37,8 @@ runs:
         string_locations=""
         while read file; do
           result=($(grep -n ".*${{ inputs.search_string }}.*" "$file" || true))
+          echo "---------------------"
+          echo "file: $file"
           echo "$result"
           
           if [[ ${#result[@]} -gt 0 ]]; then
