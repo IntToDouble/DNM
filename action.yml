@@ -54,7 +54,7 @@ runs:
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "line_number: $line_number"
             echo "line_content: $line_content"
-            echo "::error file=${file},line=${line_number},title=DO NOT MERGE::DNM"
+            echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
           done <<< "$result"
 
           if [[ ${#result[@]} -gt 0 ]]; then
