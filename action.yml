@@ -54,30 +54,13 @@ runs:
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "line_number: $line_number"
             echo "line_content: $line_content"
-            # if [[ "$n" == "Pqr def" ]]; then
-            #     echo "--- $n was found at line $i"
-            # fi    
-            # i=$(($i+1)); 
+            echo "::error file=${file},line=${line_number},title=DO NOT MERGE::DNM"
           done <<< "$result"
 
           if [[ ${#result[@]} -gt 0 ]]; then
             found_string=true
             string_locations+="${file}:\n${result[*]@Q}\n\n"
             echo "result: $result"
-            for result in "${results[@]}"; do
-              line_number=$(echo "$result" | cut -d ':' -f 1)
-              line_content=$(echo "$result" | cut -d ':' -f 2-)
-              echo "line_number: $line_number"
-              echo "line_content: $line_content"
-              echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
-            done
-            # result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
-            # if [[ ! -z $result ]]; then
-            # found_string=true
-            # string_locations+="${file}:\n${result@Q}\n\n"
-            # Annotate the file with the search results
-            # echo "::error file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
-            # echo "::error file=${file},title=DO NOT MERGE::${result}"
           fi
         done < changed_files.txt
         echo "FOUND_STRING=$found_string" >> "$GITHUB_ENV"
