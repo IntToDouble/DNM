@@ -45,6 +45,8 @@ runs:
             for result in "${results[@]}"; do
               line_number=$(echo "$result" | cut -d ':' -f 1)
               line_content=$(echo "$result" | cut -d ':' -f 2-)
+              echo "line_number: $line_number"
+              echo "line_content: $line_content"
               echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
             done
             # result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
