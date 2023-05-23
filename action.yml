@@ -11,12 +11,6 @@ inputs:
     required: false
     default: "DNM"
 
-outputs:
-  found_string:
-    description: "Whether the specified string was found in changed files"
-  string_locations:
-    description: "The locations of the specified string in changed files"
-
 runs:
   using: "composite"
   steps:
@@ -34,29 +28,20 @@ runs:
       id: search_custom_string
       run: |
         found_string=false
-        string_locations=""
         while read file; do
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
 
           while read line; do 
-            echo "$line"
+            found_string=true
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
           done <<< "$result"
 
-          if [[ ! -z $result ]]; then
-            found_string=true
-            string_locations+="${file@Q}:\n${result@Q}\n\n"
-          fi
         done < changed_files.txt
 
         if [[ $found_string == true ]]; then
-          # echo "::set-output name=found_string::true"
-          # echo "::set-output name=string_locations::${string_locations@Q}"
-          echo "::error::Issues Detected"
-          # echo "DO NOT MERGE Issues Detected"
-          # exit 1
+          exit 1
         fi
 
       shell: bash
