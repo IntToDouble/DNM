@@ -70,8 +70,11 @@ runs:
             return console.log("Skipping PR comment update. This is not a pull request.");
           }
 
+          // Second two replaces are to fix the formatting of the string locations from the @Q expansion
           const transformedLocations = stringLocations
-            .replace(/\\n/g, "\n");
+            .replace(/\\n/g, "\n")
+            .replace(/\n\$\'/, "\n")
+            .replace(/\'\n$/, "\n");
 
           const commentBody = (foundString, stringLocations) => {
             if (foundString) {
