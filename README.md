@@ -42,9 +42,8 @@ One approach to prevent this is to leave clues for Future You in comments in you
 
 This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then annotating the lines you still need to address:
 
-<!-- TODO - UPDATE IMAGE -->
+<img width="546" alt="image" src="https://github.com/IntToDouble/DNM/assets/3053339/59bdffab-46ed-4f65-88d2-f000c444308b">
 
-![image](https://github.com/IntToDouble/DNM/assets/3053339/24f65e96-c0d3-414e-bfb1-03dbc8d27cd8)
 
 ## Inputs
 
