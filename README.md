@@ -1,6 +1,6 @@
 # DNM/DO NOT MERGE Check GitHub Action
 
-This action checks for a specified string in the changed files of a pull request and posts a comment on the pull request with the results if the string is found.
+This action checks for a specified string in the changed files of a pull request and annotates the associated files if the string is found.
 
 ## Example Usage
 
@@ -35,7 +35,9 @@ One approach to prevent this is to leave clues for Future You in comments in you
 <!-- DNM - UPDATE WITH FINAL CHANGES FROM LEGAL -->
 ```
 
-This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then commenting on the lines you still need to address:
+This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then annotating the lines you still need to address:
+
+<!-- TODO - UPDATE IMAGE -->
 
 ![image](https://github.com/IntToDouble/DNM/assets/3053339/24f65e96-c0d3-414e-bfb1-03dbc8d27cd8)
 
@@ -44,10 +46,3 @@ This Github Action serves as your second pair of eyes, failing anytime it detect
 | Input           | Description                                    | Required | Default |
 | --------------- | ---------------------------------------------- | -------- | ------- |
 | `search_string` | The string to search for in the changed files. | No       | "DNM"   |
-
-## Outputs
-
-| Output             | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `found_string`     | Whether the specified string was found in the changed files. |
-| `string_locations` | The locations of the specified string in changed files.      |
