@@ -121,7 +121,7 @@ runs:
           }
 
     - name: Generate Summary
-      if: always() && ${{ env.FOUND_STRING == 'true' }}
+      if: ${{ always() && env.FOUND_STRING == 'true' }}
       run: |
         echo "## DO NOT MERGE Summary" >> $GITHUB_STEP_SUMMARY
         echo "Search String: `${{ inputs.search_string }}`" >> $GITHUB_STEP_SUMMARY
