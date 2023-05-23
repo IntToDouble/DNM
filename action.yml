@@ -37,30 +37,18 @@ runs:
         string_locations=""
         while read file; do
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
-          echo "---------------------"
-          echo "RESULT:"
-          echo "$result"
-
-          IFS=$'\n'
-          for line in $result
-          do
-            echo "====================="
-            echo $line
-          done
 
           while read line; do 
-            echo "Line - $n"
+            echo "$line"
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
-            echo "line_number: $line_number"
-            echo "line_content: $line_content"
+            echo "::warning::${line_content}"
             echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
           done <<< "$result"
 
-          if [[ ${#result[@]} -gt 0 ]]; then
+          if [[ ! -z $result ]]; then
             found_string=true
-            string_locations+="${file}:\n${result[*]@Q}\n\n"
-            echo "result: $result"
+            string_locations+="${file@Q}:\n${result@Q}\n\n"
           fi
         done < changed_files.txt
         echo "FOUND_STRING=$found_string" >> "$GITHUB_ENV"
