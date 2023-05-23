@@ -12,6 +12,11 @@ jobs:
   can_merge:
     runs-on: ubuntu-latest
     name: DNM Check
+    # NOTE - POSSIBLY NOT REQUIRED BASED ON REPO PERMISSIONS
+    # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@v3
 
