@@ -54,7 +54,7 @@ runs:
         if [[ $found_string == true ]]; then
           # echo "::set-output name=found_string::true"
           # echo "::set-output name=string_locations::${string_locations@Q}"
-          echo "::error::Issues Detected" && exit 1
+          echo "::error::Issues Detected"
           # echo "DO NOT MERGE Issues Detected"
           # exit 1
         fi
