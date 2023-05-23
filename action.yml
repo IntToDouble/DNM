@@ -32,6 +32,8 @@ runs:
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
 
           if [[ $result != true ]]; then
+            echo "Found string in file: $file"
+            echo "$result"
             found_string=true
           fi
 
