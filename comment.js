@@ -32,6 +32,7 @@ const main = async () => {
     comment.body.includes(commentIdentifier)
   );
 
+  // DNM - MAKE SURE THIS PAYLOAD CLEARS CUSTOMS
   const payload = {
     ...context.repo,
     comment_id: customStringCheckComment.id,
