@@ -43,7 +43,7 @@ runs:
             string_locations+="${file}:\n${result@Q}\n\n"
             # Annotate the file with the search results
             # echo "::error file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
-            echo "::error file=${file}title=DO NOT MERGE::${result}"
+            echo "::error file=${file},title=DO NOT MERGE::${result}"
           fi
         done < changed_files.txt
         echo "FOUND_STRING=$found_string" >> "$GITHUB_ENV"
