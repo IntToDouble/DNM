@@ -81,25 +81,33 @@ runs:
             }
           };
 
-          const existingComments = await github.rest.issues.listComments({
-            ...context.repo,
-            issue_number,
-          });
+          try {
+            const existingComments = await github.rest.issues.listComments({
+              ...context.repo,
+              issue_number,
+            });
+          } catch (e) {
+            return console.error("Error fetching existing comments", e);
+          }
 
           const customStringCheckComment = existingComments.data.find((comment) =>
             comment.body.includes(commentIdentifier)
           );
 
-          if (customStringCheckComment) {
-            await github.rest.issues.updateComment({
-              ...context.repo,
-              comment_id: customStringCheckComment?.id,
-              body: commentBody(Boolean(stringLocations), stringLocations),
-            });
-          } else {
-            await github.rest.issues.createComment({
-              ...context.repo,
-              body: commentBody(Boolean(stringLocations), stringLocations),
-              issue_number,
-            });
+          try {
+            if (customStringCheckComment) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: customStringCheckComment?.id,
+                body: commentBody(Boolean(stringLocations), stringLocations),
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                body: commentBody(Boolean(stringLocations), stringLocations),
+                issue_number,
+              });
+            }
+          } catch (e) {
+            return console.error("Error updating or creating comment", e);
           }
