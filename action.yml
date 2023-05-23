@@ -48,9 +48,14 @@ runs:
           if [[ ! -z $result ]]; then
             found_string=true
             string_locations+="${file@Q}:\n${result@Q}\n\n"
-            # exit 1;
+            echo "" && exit 1;
           fi
         done < changed_files.txt
-        echo "FOUND_STRING=$found_string" >> "$GITHUB_ENV"
-        echo "STRING_LOCATIONS=$string_locations" >> "$GITHUB_ENV"
+
+        if [[ $found_string == true ]]; then
+          # echo "::set-output name=found_string::true"
+          # echo "::set-output name=string_locations::${string_locations@Q}"
+          echo "::error title=DO NOT MERGE::Issues Detected" && exit 1
+        fi
+
       shell: bash
