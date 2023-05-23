@@ -12,7 +12,7 @@ jobs:
   can_merge:
     runs-on: ubuntu-latest
     name: DNM Check
-    # NOTE - POSSIBLY NOT REQUIRED BASED ON REPO PERMISSIONS
+    # NOTE - PERMISSIONS POSSIBLY NOT REQUIRED BASED ON REPO SETTINGS
     # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
     permissions:
       contents: read
@@ -43,7 +43,6 @@ One approach to prevent this is to leave clues for Future You in comments in you
 This Github Action serves as your second pair of eyes, failing anytime it detects the string `DNM` (or whatever you choose) in your PR, and then annotating the lines you still need to address:
 
 <img width="546" alt="image" src="https://github.com/IntToDouble/DNM/assets/3053339/59bdffab-46ed-4f65-88d2-f000c444308b">
-
 
 ## Inputs
 
