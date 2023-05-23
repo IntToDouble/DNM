@@ -42,6 +42,7 @@ runs:
           if [[ ${#result[@]} -gt 0 ]]; then
             found_string=true
             string_locations+="${file}:\n${result[*]@Q}\n\n"
+            echo "result: $result"
             for result in "${results[@]}"; do
               line_number=$(echo "$result" | cut -d ':' -f 1)
               line_content=$(echo "$result" | cut -d ':' -f 2-)
