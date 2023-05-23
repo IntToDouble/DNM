@@ -43,7 +43,7 @@ runs:
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "::warning::${line_content}"
-            echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
+            echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}" && exit 1
           done <<< "$result"
 
           if [[ ! -z $result ]]; then
