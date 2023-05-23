@@ -121,10 +121,9 @@ runs:
           }
 
     - name: Generate Summary
-      if: always()
+      if: always() && ${{ env.FOUND_STRING }}
       run: |
-        echo "## DNM Check Summary\n" >> $GITHUB_STEP_SUMMARY
-        echo "### Search String: ${{ inputs.search_string }}" >> $GITHUB_STEP_SUMMARY
-        echo "### Found String: ${{ env.FOUND_STRING }}" >> $GITHUB_STEP_SUMMARY
-        echo "### String Locations:\n${{ env.STRING_LOCATIONS }}" >> $GITHUB_STEP_SUMMARY
+        echo "## DO NOT MERGE Summary" >> $GITHUB_STEP_SUMMARY
+        echo "Search String: `${{ inputs.search_string }}`" >> $GITHUB_STEP_SUMMARY
+        echo "```${{ env.STRING_LOCATIONS }}```" >> $GITHUB_STEP_SUMMARY
       shell: bash
