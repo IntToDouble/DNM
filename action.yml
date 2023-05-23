@@ -31,10 +31,11 @@ runs:
         while read file; do
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
 
+          if [[ $result != true ]]; then
+            found_string=true
+          fi
+
           while read line; do 
-            if [[ -z "$line" ]]; then
-              found_string=true
-            fi
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "::error file=${file},line=${line_number},title=DO NOT MERGE::${line_content}"
