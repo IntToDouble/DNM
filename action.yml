@@ -124,6 +124,6 @@ runs:
       if: ${{ always() && env.FOUND_STRING == 'true' }}
       run: |
         echo "## DO NOT MERGE Summary" >> $GITHUB_STEP_SUMMARY
-        echo "Search String: `${{ inputs.search_string }}`" >> $GITHUB_STEP_SUMMARY
-        echo "```${{ env.STRING_LOCATIONS }}```" >> $GITHUB_STEP_SUMMARY
+        echo "Search String: \`${{ inputs.search_string }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`${{ env.STRING_LOCATIONS }}\`\`\`" >> $GITHUB_STEP_SUMMARY
       shell: bash
