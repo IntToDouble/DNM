@@ -55,7 +55,7 @@ runs:
         if [[ $found_string == true ]]; then
           # echo "::set-output name=found_string::true"
           # echo "::set-output name=string_locations::${string_locations@Q}"
-          echo "::error::Issues Detected"
+          echo "Issues Detected"
           exit 1
         fi
 
