@@ -38,7 +38,7 @@ runs:
         while read file; do
           result=$(grep -n ".*${{ inputs.search_string }}.*" "$file" || true)
           echo "---------------------"
-          echo "file: $file"
+          echo "RESULT:"
           echo "$result"
 
           IFS=$'\n'
@@ -58,7 +58,7 @@ runs:
             #     echo "--- $n was found at line $i"
             # fi    
             # i=$(($i+1)); 
-          done < "$result"
+          done <<< "$result"
 
           if [[ ${#result[@]} -gt 0 ]]; then
             found_string=true
