@@ -81,8 +81,10 @@ runs:
             }
           };
 
+          let existingComments;
+
           try {
-            const existingComments = await github.rest.issues.listComments({
+            existingComments = await github.rest.issues.listComments({
               ...context.repo,
               issue_number,
             });
