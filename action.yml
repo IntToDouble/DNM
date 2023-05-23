@@ -41,18 +41,24 @@ runs:
           echo "file: $file"
           echo "$result"
 
+          IFS=$'\n'
+          for line in $result
+          do
+            echo "====================="
+            echo $line
+          done
+
           while read line; do 
             echo "Line - $n"
             line_number=$(echo "$line" | cut -d ':' -f 1)
             line_content=$(echo "$line" | cut -d ':' -f 2-)
             echo "line_number: $line_number"
             echo "line_content: $line_content"
-
             # if [[ "$n" == "Pqr def" ]]; then
             #     echo "--- $n was found at line $i"
             # fi    
             # i=$(($i+1)); 
-          done <<< "$result"
+          done < "$result"
 
           if [[ ${#result[@]} -gt 0 ]]; then
             found_string=true
